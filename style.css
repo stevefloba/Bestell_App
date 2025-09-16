@@ -16,6 +16,12 @@ header {
     align-items: center;
 }
 
+.header_content {
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+}
+
 .logo {
     padding-left: 32px;
 }
@@ -32,6 +38,8 @@ header {
     width: 100%;
     height: 120px;
 }
+
+
 
 .header_dishes {
     background-image: url('./assets/img/jaegerschnitzel.jpg');
@@ -57,6 +65,11 @@ h1 {
 
 h2 {
     font-size: 16px;
+}
+
+a {
+    font-size: 16px;
+    text-decoration: none;
 }
 
 .restaurant_rating {
@@ -105,7 +118,12 @@ h2 {
 
 .content_restaurant_category {
     background-color: #F7F6F1;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 }
+
+
 
 .basket_wrapper {
     width: 300px;
