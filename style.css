@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color:whitesmoke;
+    background-color: whitesmoke;
 }
 
 header {
@@ -33,6 +33,24 @@ header {
     height: 120px;
 }
 
+.header_dishes {
+    background-image: url('./assets/img/jaegerschnitzel.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 80px;
+}
+
+.header_supplements {
+    background-image: url('./assets/img/beilagen.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 80px;
+}
+
 h1 {
     font-size: 24px;
 }
@@ -43,7 +61,7 @@ h2 {
 
 .restaurant_rating {
     font-size: 12px;
-    color:#FF8000;
+    color: #FF8000;
 }
 
 .content_total {
@@ -57,7 +75,33 @@ h2 {
     font-size: 48px;
     height: 1500px;
     width: 100%;
+    position: relative;
+    /* für das Logo */
 }
+
+
+.logo_overlay {
+    position: absolute;
+    top: 110px;
+    /* Zentrierung zwischen den div's. Evt anpassen */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    /* sorgt dafür, dass das Bild nicht über den Kreis hinausläuft */
+    border: 2px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.logo_overlay img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
 
 .content_restaurant_category {
     background-color: #F7F6F1;
@@ -71,7 +115,7 @@ h2 {
 
 .basket {
     width: 100%;
-    height: 400px; 
+    height: 400px;
     position: sticky;
     top: 0;
 }
@@ -96,7 +140,7 @@ h2 {
 }
 
 .menu-item :hover {
-background-color: #FEE5CB;
+    background-color: #FEE5CB;
 }
 
 .menu-info {
@@ -150,7 +194,8 @@ background-color: #FEE5CB;
 
 .basket-controls button {
     background: none;
-    border: none; /* 1px solid #FF8000*/
+    border: none;
+    /* 1px solid #FF8000*/
     color: #FF8000;
     padding: 2px 6px;
     cursor: pointer;
