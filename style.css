@@ -140,9 +140,15 @@ a {
 
 
 
-.footer {
+footer {
     background-color: #3D3D3D;
     height: 60px;
+}
+
+.footer_content {
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 
