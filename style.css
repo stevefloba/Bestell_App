@@ -123,6 +123,9 @@ a {
     gap: 20px;
 }
 
+.content_restaurant_category :hover {
+    color:#FF8000;
+}
 
 
 .basket_wrapper {
@@ -163,7 +166,7 @@ footer {
     padding: 12px 0;
 }
 
-.menu-item :hover {
+.menu-item:hover {
     background-color: #FEE5CB;
 }
 
