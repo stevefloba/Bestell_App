@@ -121,6 +121,7 @@ a {
     display: flex;
     flex-direction: row;
     gap: 20px;
+    font-style: oblique;
 }
 
 .content_restaurant_category :hover {
@@ -152,6 +153,7 @@ footer {
     max-width: 1440px;
     width: 100%;
     margin: 0 auto;
+    padding-left: 32px;
 }
 
 
@@ -237,6 +239,87 @@ footer {
 }
 
 
+/* Desktop: normal anzeigen */
+.basket_wrapper {
+    display: block;
+}
+
+.show-basket-btn-wrapper {
+    display: none;
+}
+
+/* Mobile (<790px): Warenkorb ausblenden, stattdessen Button zeigen */
+@media (max-width: 790px) {
+    .basket_wrapper {
+        display: none; /* rechter Warenkorb weg */
+    }
+
+    .show-basket-btn-wrapper {
+        display: block;
+        text-align: center;
+        margin: 16px 0;
+    }
+
+    .show-basket-btn {
+        padding: 12px 20px;
+        font-size: 16px;
+        background-color: #FF8000;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .show-basket-btn:hover {
+        background-color: #e07000;
+    }
+
+    /* Vollbild-Warenkorb */
+    .basket_responsive {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        z-index: 2000;
+        overflow-y: auto;
+        padding: 16px;
+        display: none; /* initial versteckt */
+    }
+
+    .basket_responsive_open {
+        display: block;
+    }
+
+    .basket_responsive h2 {
+        margin-top: 0;
+    }
+
+    .back-to-menu-btn {
+        margin-top: 16px;
+        width: 100%;
+        padding: 12px;
+        background-color: #FF8000;
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .back-to-menu-btn:hover {
+        background-color: #e07000;
+    }
+}
+
+@media (max-width: 580px) {
+    .logo_overlay {
+        top: 50px;
+    }
+}
+
+
 .order-popup {
     position: fixed;
     top: 0;
@@ -247,7 +330,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 3000; /* statt 1000 */
 }
 
 .order-popup-content {

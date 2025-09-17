@@ -5,14 +5,12 @@ function init() {
     renderBasket();
 }
 
+/* -----------------------------
+   Menü rendern
+----------------------------- */
 function renderMenu() {
     const menuContainer = document.querySelector(".content_restaurant_navbar");
     menuContainer.innerHTML = "";
-
-
-    /* eine for-Schleife finde ich unpassend weil länger
-    for (let i = 0; i < myDishes.length; i++) {
-    const dish = myDishes[i]; */
 
     myDishes.forEach((dish, index) => {
         menuContainer.innerHTML += `
@@ -28,6 +26,9 @@ function renderMenu() {
     });
 }
 
+/* -----------------------------
+   Basket Funktionen
+----------------------------- */
 function addToBasket(index) {
     const dish = myDishes[index];
     const existing = basket.find(item => item.name === dish.name);
@@ -36,15 +37,6 @@ function addToBasket(index) {
         existing.amount++;
     } else {
         basket.push({ ...dish, amount: 1 });
-
-        /* kürzer und finde ich besser als:
-
-        basket.push({
-        name: dish.name,
-        price: dish.price,
-        description: dish.description,
-        amount: 1
-        }); */
     }
 
     renderBasket();
@@ -60,11 +52,6 @@ function renderBasket() {
     }
 
     let subtotal = 0;
-
-
-    /* eine for-Schleife finde ich unpassend weil länger
-    for (let i = 0; i < basket.length; i++) {
-    const item = basket[i]; */
 
     basket.forEach((item, basketIndex) => {
         const totalPrice = item.price * item.amount;
@@ -100,6 +87,7 @@ function renderBasket() {
 function increaseAmount(basketIndex) {
     basket[basketIndex].amount++;
     renderBasket();
+    if (window.innerWidth <= 790) renderResponsiveBasket();
 }
 
 function decreaseAmount(basketIndex) {
@@ -109,13 +97,79 @@ function decreaseAmount(basketIndex) {
         basket.splice(basketIndex, 1);
     }
     renderBasket();
+    if (window.innerWidth <= 790) renderResponsiveBasket();
 }
 
 function removeFromBasket(basketIndex) {
     basket.splice(basketIndex, 1);
     renderBasket();
+    if (window.innerWidth <= 790) renderResponsiveBasket();
 }
 
+/* -----------------------------
+   Responsive Basket
+----------------------------- */
+function openResponsiveBasket() {
+    const basketResponsive = document.getElementById("basket_responsive");
+    basketResponsive.classList.remove("basket_responsive_closed");
+    basketResponsive.classList.add("basket_responsive_open");
+    renderResponsiveBasket();
+}
+
+function closeResponsiveBasket() {
+    const basketResponsive = document.getElementById("basket_responsive");
+    basketResponsive.classList.remove("basket_responsive_open");
+    basketResponsive.classList.add("basket_responsive_closed");
+    basketResponsive.innerHTML = "";
+}
+
+function renderResponsiveBasket() {
+    const basketResponsive = document.getElementById("basket_responsive");
+    basketResponsive.innerHTML = "<h2>Warenkorb</h2>";
+
+    if (basket.length === 0) {
+        basketResponsive.innerHTML += "<p>Dein Warenkorb ist leer.</p>";
+        basketResponsive.innerHTML += `<button class="back-to-menu-btn" onclick="closeResponsiveBasket()">Zurück zur Auswahl</button>`;
+        return;
+    }
+
+    let subtotal = 0;
+
+    basket.forEach((item, basketIndex) => {
+        const totalPrice = item.price * item.amount;
+        subtotal += totalPrice;
+
+        basketResponsive.innerHTML += `
+        <div class="basket-item">
+            <div class="basket-name">${item.name}</div>
+            <div class="basket-controls">
+                <button onclick="decreaseAmount(${basketIndex}); renderResponsiveBasket();">-</button>
+                <span>${item.amount}</span>
+                <button onclick="increaseAmount(${basketIndex}); renderResponsiveBasket();">+</button>
+                <span>${totalPrice.toFixed(2).replace(".", ",")} €</span>
+                <button onclick="removeFromBasket(${basketIndex}); renderResponsiveBasket();">🗑️</button>
+            </div>
+        </div>
+    `;
+    });
+
+    const delivery = 5.0;
+    const total = subtotal + delivery;
+
+    basketResponsive.innerHTML += `
+    <div class="basket-summary">
+        <p>Zwischensumme: ${subtotal.toFixed(2).replace(".", ",")} €</p>
+        <p>Lieferkosten: ${delivery.toFixed(2).replace(".", ",")} €</p>
+        <p><strong>Gesamt: ${total.toFixed(2).replace(".", ",")} €</strong></p>
+        <button class="order-btn" onclick="placeOrder()">Bestellen</button>
+    </div>
+    <button class="back-to-menu-btn" onclick="closeResponsiveBasket()">Zurück zur Auswahl</button>
+`;
+}
+
+/* -----------------------------
+   Bestellung & Popup
+----------------------------- */
 function placeOrder() {
     if (basket.length === 0) {
         return;
@@ -155,9 +209,19 @@ function showOrderPopup(message) {
 }
 
 function closeOrderPopup() {
-    document.querySelector(".order-popup").remove();
+    const popup = document.querySelector(".order-popup");
+    if (popup) {
+        popup.remove();
+    }
+
     basket = []; // Warenkorb leeren
     renderBasket();
+
+    // Falls mobiler Warenkorb offen ist → nach Leeren nochmal rendern
+    const basketResponsive = document.getElementById("basket_responsive");
+    if (basketResponsive.classList.contains("basket_responsive_open")) {
+        renderResponsiveBasket();
+    }
 }
 
 window.onload = init;

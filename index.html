@@ -18,9 +18,9 @@
 <body>
     <header>
         <div class="header_content">
-        <div class="logo">
-            <img src="./assets/img/Logo.png" alt="Bestell-App-Logo">
-        </div>
+            <div class="logo">
+                <img src="./assets/img/Logo.png" alt="Bestell-App-Logo">
+            </div>
         </div>
     </header>
 
@@ -56,15 +56,21 @@
             <div class="header_supplements" id="supplements"></div>
             <h2>Beilagen</h2>
 
+            <div class="show-basket-btn-wrapper">
+                <button id="showBasketBtn" class="show-basket-btn" onclick="openResponsiveBasket()">🛒 Zum
+                    Warenkorb</button>
+            </div>
+
         </section>
         <section class="basket_wrapper">
             <div class="basket"></div>
         </section>
+        
         <div id="basket_responsive" class="basket_responsive basket_responsive_closed"></div>
 
     </section>
     <footer>
-    <section class="footer_content"> ...Footerinhalt... </section>
+        <section class="footer_content"> ...Footerinhalt... </section>
     </footer>
     <!-- Code injected by live-server -->
     <script src="./scripts/db.js"></script>
