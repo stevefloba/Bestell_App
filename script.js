@@ -224,4 +224,16 @@ function closeOrderPopup() {
     }
 }
 
+function openBurgerMenu() {
+    const overlay = document.getElementById("burgerOverlay");
+    overlay.style.display = "flex";
+}
+
+function closeBurgerMenu() {
+    const overlay = document.getElementById("burgerOverlay");
+    overlay.style.display = "none";
+}
+
+
+
 window.onload = init;
