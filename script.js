@@ -92,6 +92,7 @@ function renderBasket() {
         <p>Zwischensumme: ${subtotal.toFixed(2).replace(".", ",")} €</p>
         <p>Lieferkosten: ${delivery.toFixed(2).replace(".", ",")} €</p>
         <p><strong>Gesamt: ${total.toFixed(2).replace(".", ",")} €</strong></p>
+        <button class="order-btn" onclick="placeOrder()">Bestellen</button>
     </div>
 `;
 }
@@ -112,6 +113,50 @@ function decreaseAmount(basketIndex) {
 
 function removeFromBasket(basketIndex) {
     basket.splice(basketIndex, 1);
+    renderBasket();
+}
+
+function placeOrder() {
+    if (basket.length === 0) {
+        return;
+    }
+
+    let orderText = "";
+    basket.forEach(item => {
+        orderText += `${item.amount}x ${item.name} - ${(item.price * item.amount).toFixed(2).replace(".", ",")} €\n`;
+    });
+
+    const subtotal = basket.reduce((sum, item) => sum + item.price * item.amount, 0);
+    const delivery = 5.0;
+    const total = subtotal + delivery;
+
+    const message = `
+${orderText}
+---------------------------
+Zwischensumme: ${subtotal.toFixed(2).replace(".", ",")} €
+Lieferkosten: ${delivery.toFixed(2).replace(".", ",")} €
+Gesamt: ${total.toFixed(2).replace(".", ",")} €
+    `;
+
+    showOrderPopup(message);
+}
+
+function showOrderPopup(message) {
+    const popup = document.createElement("div");
+    popup.classList.add("order-popup");
+    popup.innerHTML = `
+        <div class="order-popup-content">
+            <h2>Bestellung eingegangen ✅</h2>
+            <pre>${message}</pre>
+            <button onclick="closeOrderPopup()">OK</button>
+        </div>
+    `;
+    document.body.appendChild(popup);
+}
+
+function closeOrderPopup() {
+    document.querySelector(".order-popup").remove();
+    basket = []; // Warenkorb leeren
     renderBasket();
 }
 
