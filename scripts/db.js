@@ -25,3 +25,31 @@ let myDishes = [
         "description": "Currywurst geschnitten mit Currysoße und Fritten"
     }
 ];
+
+let mySupplements = [
+    {
+        "name": "Salat nach Art des Hauses",
+        "price": 10.99,
+        "description": "gemischter Salat mit Putenstreifen"
+    },
+    {
+        "name": "Salat Thunfisch",
+        "price": 10.99,
+        "description": "gemischter Salat mit Thunfisch"
+    },
+    {
+        "name": "Salat Cheese",
+        "price": 15.99,
+        "description": "gemischter Salat mit Käseraspel"
+    },
+    {
+        "name": "Gemüse-Kick",
+        "price": 11.99,
+        "description": "verschiedene Gemüse der Saison"
+    },
+    {
+        "name": "Schupfnudeln",
+        "price": 9.99,
+        "description": "Schupfnudeln mit Käsesoße"
+    }
+];

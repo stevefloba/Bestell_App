@@ -2,11 +2,12 @@ let basket = [];
 
 function init() {
     renderMenu();
+    renderSupplements();
     renderBasket();
 }
 
 /* -----------------------------
-   Menü rendern
+   Menü rendern (Hauptgerichte)
 ----------------------------- */
 function renderMenu() {
     const menuContainer = document.querySelector(".content_restaurant_navbar");
@@ -14,13 +15,34 @@ function renderMenu() {
 
     myDishes.forEach((dish, index) => {
         menuContainer.innerHTML += `
-            <div class="menu-item">
+            <div class="menu-item" onclick="addToBasketFromDishes(${index})">
                 <div class="menu-info">
                     <h3>${dish.name}</h3>
                     <p>${dish.description}</p>
                     <p class="price">${dish.price.toFixed(2).replace(".", ",")} €</p>
                 </div>
-                <div class="menu-add" onclick="addToBasket(${index})">+</div>
+                <div class="menu-add">+</div>
+            </div>
+        `;
+    });
+}
+
+/* -----------------------------
+   Menü rendern (Beilagen)
+----------------------------- */
+function renderSupplements() {
+    const supplementsContainer = document.querySelector(".content_restaurant_supplements");
+    supplementsContainer.innerHTML = "";
+
+    mySupplements.forEach((supplement, index) => {
+        supplementsContainer.innerHTML += `
+            <div class="menu-item" onclick="addToBasketFromSupplements(${index})">
+                <div class="menu-info">
+                    <h3>${supplement.name}</h3>
+                    <p>${supplement.description}</p>
+                    <p class="price">${supplement.price.toFixed(2).replace(".", ",")} €</p>
+                </div>
+                <div class="menu-add">+</div>
             </div>
         `;
     });
@@ -29,17 +51,27 @@ function renderMenu() {
 /* -----------------------------
    Basket Funktionen
 ----------------------------- */
-function addToBasket(index) {
+function addToBasketFromDishes(index) {
     const dish = myDishes[index];
-    const existing = basket.find(item => item.name === dish.name);
+    addItemToBasket(dish);
+}
+
+function addToBasketFromSupplements(index) {
+    const supplement = mySupplements[index];
+    addItemToBasket(supplement);
+}
+
+function addItemToBasket(item) {
+    const existing = basket.find(entry => entry.name === item.name);
 
     if (existing) {
         existing.amount++;
     } else {
-        basket.push({ ...dish, amount: 1 });
+        basket.push({ ...item, amount: 1 });
     }
 
     renderBasket();
+    if (window.innerWidth <= 790) renderResponsiveBasket();
 }
 
 function renderBasket() {
