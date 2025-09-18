@@ -234,6 +234,4 @@ function closeBurgerMenu() {
     overlay.style.display = "none";
 }
 
-
-
 window.onload = init;
