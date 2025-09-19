@@ -7,6 +7,73 @@ function init() {
 }
 
 /* -----------------------------
+   Menu Rendering
+----------------------------- */
+function renderMenu() {
+    const menuContainer = document.querySelector(".content_restaurant_navbar");
+    menuContainer.innerHTML = "";
+
+    myDishes.forEach((dish, index) => {
+        menuContainer.innerHTML += dishTemplate(dish, index);
+    });
+}
+
+function renderSupplements() {
+    const supplementsContainer = document.querySelector(".content_restaurant_supplements");
+    supplementsContainer.innerHTML = "";
+
+    mySupplements.forEach((supplement, index) => {
+        supplementsContainer.innerHTML += supplementTemplate(supplement, index);
+    });
+}
+
+/* -----------------------------
+   Basket Rendering
+----------------------------- */
+function renderBasket() {
+    const basketDiv = document.querySelector(".basket");
+    basketDiv.innerHTML = "<h2>Warenkorb</h2>";
+
+    if (basket.length === 0) {
+        basketDiv.innerHTML += emptyBasketTemplate();
+        return;
+    }
+
+    let subtotal = 0;
+    basket.forEach((item, basketIndex) => {
+        const totalPrice = item.price * item.amount;
+        subtotal += totalPrice;
+        basketDiv.innerHTML += basketItemTemplate(item, basketIndex, totalPrice);
+    });
+
+    const delivery = 5.0;
+    const total = subtotal + delivery;
+    basketDiv.innerHTML += basketSummaryTemplate(subtotal, delivery, total);
+}
+
+function renderResponsiveBasket() {
+    const basketResponsive = document.getElementById("basket_responsive");
+    basketResponsive.innerHTML = "<h2>Warenkorb</h2>";
+
+    if (basket.length === 0) {
+        basketResponsive.innerHTML += emptyResponsiveBasketTemplate();
+        return;
+    }
+
+    let subtotal = 0;
+    basket.forEach((item, basketIndex) => {
+        const totalPrice = item.price * item.amount;
+        subtotal += totalPrice;
+        basketResponsive.innerHTML += responsiveBasketItemTemplate(item, basketIndex, totalPrice);
+    });
+
+    const delivery = 5.0;
+    const total = subtotal + delivery;
+    basketResponsive.innerHTML += basketSummaryTemplate(subtotal, delivery, total);
+    basketResponsive.innerHTML += `<button class="back-to-menu-btn" onclick="closeResponsiveBasket()">Zurück zur Auswahl</button>`;
+}
+
+/* -----------------------------
    Basket Funktionen
 ----------------------------- */
 function addToBasketFromDishes(index) {
