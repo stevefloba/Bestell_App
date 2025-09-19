@@ -156,10 +156,12 @@ a {
 
 .basket {
     width: 100%;
-    max-height: calc(100vh - 40px); /* passt sich an Bildschirmhöhe an */
+    max-height: calc(100vh - 40px);
+    /* passt sich an Bildschirmhöhe an */
     position: sticky;
     top: 0;
-    overflow-y: auto;  /* Scrollbalken bei Überlänge */
+    overflow-y: auto;
+    /* Scrollbalken bei Überlänge */
     padding-right: 4px;
 }
 
@@ -227,7 +229,8 @@ footer {
     font-size: 24px;
     color: #FF8000;
     user-select: none;
-    pointer-events: none; /* verhindert, dass nur das Plus anklickbar ist */
+    pointer-events: none;
+    /* verhindert, dass nur das Plus anklickbar ist */
 }
 
 .basket h2 {
@@ -289,7 +292,8 @@ footer {
         display: block;
         text-align: center;
         margin: 0;
-        position: fixed;   /* statt sticky */
+        position: fixed;
+        /* statt sticky */
         top: 60px;
         left: 0;
         width: 100%;
@@ -491,5 +495,19 @@ footer {
 
     .burger-menu {
         display: block;
+    }
+}
+
+@media (max-width: 370px) {
+    .content_restaurant_category h2 {
+        font-size: 16px;
+    }
+
+    .menu-info h3 {
+        font-size: 14px;
+    }
+
+    .menu-info p {
+        font-size: 12px;
     }
 }
